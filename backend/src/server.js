@@ -33,12 +33,20 @@ app.use(`${API_V}/tasks`, taskRouter);
 
 app.use(errorMiddleware);
 
-if(NODE_ENV !== "test") {
-    const startServer = () => {
-        connectDB();
-        console.log('Server running...');
+if (NODE_ENV !== "test") {
+    const startServer = async () => {
+        try {
+            await connectDB();
+            app.listen(PORT, () => {
+                console.log(`Server running on port ${PORT}`);
+            });
+        } catch (err) {
+            console.error("Failed to start server:", err);
+            process.exit(1);
+        }
     };
-    app.listen(PORT, startServer);
+
+    startServer();
 }
 
 export default app;
