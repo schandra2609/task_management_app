@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { login } from '../services/authService';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaLock } from 'react-icons/fa';
+import { FaLock, FaTasks } from 'react-icons/fa';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -26,7 +26,13 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center mt-20 px-4">
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 pb-20">
+            {/* TaskMaster Logo */}
+            <div className="flex items-center space-x-2 text-4xl font-bold font-times mb-8">
+                <FaTasks className="text-blue-500" />
+                <span className="text-slate-900">TaskMaster</span>
+            </div>
+
             <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-50">
                 <div className="text-center mb-8">
                     <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

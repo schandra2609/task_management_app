@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { register } from '../services/authService';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaUserPlus } from 'react-icons/fa';
+import { FaUserPlus, FaTasks } from 'react-icons/fa';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -19,7 +19,13 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center mt-12 px-4">
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 pb-20">
+            {/* TaskMaster Logo */}
+            <div className="flex items-center space-x-2 text-4xl font-bold font-times mb-8">
+                <FaTasks className="text-blue-500" />
+                <span className="text-slate-900">TaskMaster</span>
+            </div>
+
             <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100">
                 <div className="text-center mb-8">
                     <FaUserPlus className="mx-auto text-4xl text-blue-600 mb-2" />
