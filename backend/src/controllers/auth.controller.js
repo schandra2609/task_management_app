@@ -42,17 +42,31 @@ const login = async (req, res, next) => {
             throw new BadRequestError("Email and password are required");
 
         const user = await User.findOne({ email }).select("+password");
+        if(!user)
+            throw new UnauthorizedError("Invalid credentials");
+
         const isMatch = await bcrypt.compare(password, user.password);
-        if(!user || !isMatch)
+        if(!isMatch)
             throw new UnauthorizedError("Invalid credentials");
 
         const token = generateToken(user._id);
+        // Return user info (without password) along with token
+        const userInfo = await User.findById(user._id);
         res.status(200).json({
             success: true,
-            data: token,
+            data: { user: userInfo, token },
             message: "Logged in",
         })
     } catch (error) { next(error); }
 };
 
-export { register, login };
+const getMe = async (req, res, next) => {
+    try {
+        res.status(200).json({
+            success: true,
+            data: req.user,
+        });
+    } catch (error) { next(error); }
+};
+
+export { register, login, getMe };
